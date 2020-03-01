@@ -29,12 +29,10 @@ public class CalculateModel {
 			}
 			else if("*/".indexOf(c) >= 0)
 			{
-				if(c == '/') 
+				
+				while(!stack.isEmpty() && "*/".indexOf(stack.peek()) >= 0) 
 				{
-					while(!stack.isEmpty() && "*/".indexOf(stack.peek()) >= 0) 
-					{
-						string.add(stack.pop());
-					}
+					string.add(stack.pop());
 				}
 				stack.push(s.substring(i, i + 1));
 			}

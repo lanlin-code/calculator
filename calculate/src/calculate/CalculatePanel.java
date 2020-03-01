@@ -32,13 +32,26 @@ public class CalculatePanel extends JPanel{
 		// BorderLayoutÎª±ß¿ò²¼¾Ö
 		add(display, BorderLayout.NORTH);
 		
+		JPanel southPanel = new JPanel();
+		add(southPanel, BorderLayout.SOUTH);
+		
 		// AC¼ü
 		JButton AC = new JButton("AC");
 		AC.addActionListener(event -> {
 			display.setText("0");
 			sb.delete(0, sb.length());
 		});
-		add(AC,BorderLayout.SOUTH);
+		
+		// delete¼ü
+		JButton delete = new JButton("Delete");
+		delete.addActionListener(event -> {
+			sb.deleteCharAt(sb.length() - 1);
+			display.setText(sb.toString());
+		});
+		
+		southPanel.add(AC);
+		southPanel.add(delete);
+		
 		
 		// Êý×Ö¼àÌýÆ÷
 		ActionListener insert = new InsertAction();
