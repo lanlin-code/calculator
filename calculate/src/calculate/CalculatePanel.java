@@ -12,59 +12,58 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class CalculatePanel extends JPanel{
+public class CalculatePanel extends JPanel {
 	private JButton display;
 	private JPanel panel;
 	private StringBuffer sb;
 	private CalculateModel model;
-	
+
 	public CalculatePanel() {
 		setLayout(new BorderLayout());
-		
+
 		model = new CalculateModel();
-		
+
 		sb = new StringBuffer();
 
-		// ³õÊ¼»¯ÏÔÊ¾
+		// åˆå§‹åŒ–æ˜¾ç¤º
 		display = new JButton("0");
 		display.setEnabled(false);
-		
-		// BorderLayoutÎª±ß¿ò²¼¾Ö
+
+		// BorderLayoutä¸ºè¾¹æ¡†å¸ƒå±€
 		add(display, BorderLayout.NORTH);
-		
+
 		JPanel southPanel = new JPanel();
 		add(southPanel, BorderLayout.SOUTH);
-		
-		// AC¼ü
+
+		// ACé”®
 		JButton AC = new JButton("AC");
 		AC.addActionListener(event -> {
 			display.setText("0");
 			sb.delete(0, sb.length());
 		});
-		
-		// delete¼ü
+
+		// deleteé”®
 		JButton delete = new JButton("Delete");
 		delete.addActionListener(event -> {
 			sb.deleteCharAt(sb.length() - 1);
 			display.setText(sb.toString());
 		});
-		
+
 		southPanel.add(AC);
 		southPanel.add(delete);
-		
-		
-		// Êý×Ö¼àÌýÆ÷
+
+		// æ•°å­—ç›‘å¬å™¨
 		ActionListener insert = new InsertAction();
-		
-		// ·ûºÅ¼àÌýÆ÷
+
+		// ç¬¦å·ç›‘å¬å™¨
 		ActionListener command = new CommandAction();
-		
-		// °´Å¥»­°å
+
+		// æŒ‰é’®ç”»æ¿
 		panel = new JPanel();
-		
-		// GridLayoutÎªÍø¸ñ²¼¾Ö£¬ÕâÀïÉèÖÃ4*4µÄÍø¸ñ
+
+		// GridLayoutä¸ºç½‘æ ¼å¸ƒå±€ï¼Œè¿™é‡Œè®¾ç½®4*4çš„ç½‘æ ¼
 		panel.setLayout(new GridLayout(4, 4));
-		
+
 		addButton("7", insert);
 		addButton("8", insert);
 		addButton("9", insert);
@@ -83,9 +82,9 @@ public class CalculatePanel extends JPanel{
 		addButton("+", command);
 		add(panel, BorderLayout.CENTER);
 	}
-	
+
 	public static void main(String[] args) {
-		EventQueue.invokeLater(()->{
+		EventQueue.invokeLater(() -> {
 			CalculatePanel cp = new CalculatePanel();
 			JFrame frame = new JFrame();
 			frame.add(cp);
@@ -94,18 +93,17 @@ public class CalculatePanel extends JPanel{
 			frame.pack();
 			frame.setVisible(true);
 		});
-		
+
 	}
-	
-	// ´´½¨°´Å¥²¢½«ÆäÌí¼Óµ½»­°å
+
+	// åˆ›å»ºæŒ‰é’®å¹¶å°†å…¶æ·»åŠ åˆ°ç”»æ¿
 	public void addButton(String s, ActionListener listener) {
 		JButton button = new JButton(s);
 		button.addActionListener(listener);
 		panel.add(button);
 	}
-	
- 
-	private class InsertAction implements ActionListener{
+
+	private class InsertAction implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -114,57 +112,47 @@ public class CalculatePanel extends JPanel{
 			display.setText(sb.toString());
 
 		}
-		
+
 	}
-	
-	private class CommandAction implements ActionListener{
+
+	private class CommandAction implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String command = e.getActionCommand();
-			if(sb.length() > 0)
-			{
-				
-				if("+-*/".indexOf(sb.charAt(sb.length() - 1)) >= 0) 
-				{
+			if (sb.length() > 0) {
+
+				if ("+-*/".indexOf(sb.charAt(sb.length() - 1)) >= 0) {
 					sb.deleteCharAt(sb.length() - 1);
 					sb.append(command);
 					display.setText(sb.toString());
-					if(command.equals("="))
-					{
+					if (command.equals("=")) {
 						model.translate(sb.toString());
 						display.setText(sb.toString() + model.calculate());
 						sb.delete(0, sb.length());
 					}
-				}
-				else if(command.equals("="))
-				{
+				} else if (command.equals("=")) {
 					sb.append(command);
 					model.translate(sb.toString());
 					display.setText(sb.toString() + model.calculate());
 					sb.delete(0, sb.length());
-					
-				}
-				else 
-				{
-					
+
+				} else {
+
 					sb.append(command);
 					display.setText(sb.toString());
-					
+
 				}
-				
-			}
-			else if(command.equals("-"))
-			{
+
+			} else if (command.equals("-")) {
 				sb.append("0");
 				sb.append(command);
 				display.setText(sb.toString());
-				
+
 			}
-			
+
 		}
-		
+
 	}
-	
-	
+
 }
