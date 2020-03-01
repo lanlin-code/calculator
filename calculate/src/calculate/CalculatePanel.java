@@ -143,6 +143,7 @@ public class CalculatePanel extends JPanel{
 			}
 			else if(command.equals("-"))
 			{
+				sb.append("0");
 				sb.append(command);
 				display.setText(sb.toString());
 				
