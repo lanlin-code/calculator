@@ -6,7 +6,7 @@ import java.util.Stack;
 public class CalculateModel {
 	private ArrayList<String> string = new ArrayList<>();
 	
-	// µÃµ½Êı×ÖºÍÕıÈ·µÄÔËËãË³Ğò
+	// ï¿½Ãµï¿½ï¿½ï¿½ï¿½Öºï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½
 	public void translate(String s) {
 		Stack<String> stack = new Stack<>();
 		StringBuilder str = new StringBuilder();
@@ -57,7 +57,7 @@ public class CalculateModel {
 //			
 	}
 	
-	// ¼ÆËã
+	// ï¿½ï¿½ï¿½ï¿½
 	public String calculate() {
 		Stack<String> stack = new Stack<>();
 		for(String s : string) {
@@ -75,7 +75,7 @@ public class CalculateModel {
 				else if(s.equals("/") && num1 != 0)number = num2 / num1;
 				else
 				{
-					return "²»ÄÜ³ıÒÔ0";
+					return "ä¸èƒ½é™¤ä»¥0";
 				}
 				stack.push(Double.toString(number));
 			}

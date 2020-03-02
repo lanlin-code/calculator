@@ -45,8 +45,15 @@ public class CalculatePanel extends JPanel {
 		// delete键
 		JButton delete = new JButton("Delete");
 		delete.addActionListener(event -> {
-			sb.deleteCharAt(sb.length() - 1);
-			display.setText(sb.toString());
+			if(sb.length() > 0) 
+			{
+				sb.deleteCharAt(sb.length() - 1);
+				display.setText(sb.toString());
+			}
+			else
+			{
+				display.setText("0");
+			}
 		});
 
 		southPanel.add(AC);
@@ -120,31 +127,40 @@ public class CalculatePanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String command = e.getActionCommand();
-			if (sb.length() > 0) {
+			if (sb.length() > 0)
+			{
 
-				if ("+-*/".indexOf(sb.charAt(sb.length() - 1)) >= 0) {
+				if ("+-*/".indexOf(sb.charAt(sb.length() - 1)) >= 0)
+				{
 					sb.deleteCharAt(sb.length() - 1);
 					sb.append(command);
 					display.setText(sb.toString());
-					if (command.equals("=")) {
+					if (command.equals("="))
+					{
 						model.translate(sb.toString());
 						display.setText(sb.toString() + model.calculate());
 						sb.delete(0, sb.length());
 					}
-				} else if (command.equals("=")) {
+				}
+				else if (command.equals("=")) 
+				{
 					sb.append(command);
 					model.translate(sb.toString());
 					display.setText(sb.toString() + model.calculate());
 					sb.delete(0, sb.length());
 
-				} else {
+				} 
+				else 
+				{
 
 					sb.append(command);
 					display.setText(sb.toString());
 
 				}
 
-			} else if (command.equals("-")) {
+			}
+			else if (command.equals("-")) 
+			{
 				sb.append("0");
 				sb.append(command);
 				display.setText(sb.toString());
